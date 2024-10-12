@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Player for RPG Maker Games</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .text-box {
+            border: 2px solid #00ff00;
+            padding: 10px;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #00ff00;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #003300;
+        }
+
+        a {
+            color: #00ff00;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Web Player for RPG Maker Games</h1>
+    <div class="text-box">
+        <p>Placeholder text. This is where you can add more information later.</p>
+    </div>
+    <h2>Games</h2>
+    <table id="gamesTable">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Link</th>
+        </tr>
+    </table>
+
+    <script>
+        const ignoreList = ['Game-List'];
+        fetch('https://api.github.com/users/MakerBurns/repos')
+            .then(response => response.json())
+            .then(data => {
+                const gamesTable = document.getElementById('gamesTable');
+                data.forEach(repo => {
+                    if (repo.has_pages && !ignoreList.includes(repo.name)) {
+                        const row = gamesTable.insertRow(-1);
+                        const nameCell = row.insertCell(0);
+                        const descCell = row.insertCell(1);
+                        const linkCell = row.insertCell(2);
+
+                        nameCell.textContent = repo.name;
+                        descCell.textContent = repo.description || 'No description available';
+                        const pageUrl = `https://makerburns.github.io/${repo.name}/`;
+                        linkCell.innerHTML = `<a href="${pageUrl}" target="_blank">Play Game</a>`;
+                    }
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+
+</html>
