@@ -53,7 +53,7 @@
             Only RPG Maker 2000 and 2003 games.
         </p>
     </div>
-    <h2>Games</h2>
+    <h2>Available Games</h2>
     <table id="gamesTable">
         <tr>
             <th>Name</th>
@@ -83,6 +83,35 @@
                 });
             })
             .catch(error => console.error('Error:', error));
+    </script>
+
+    <h2>Removed Games</h2>
+    <div class="text-box">
+        <p>
+            These games were hosted or considered to be hosted, but were removed for various reasons.
+        </p>
+    </div>
+    <table id="removedGamesTable">
+        <tr>
+            <th>Game Name</th>
+            <th>Reason for Removal</th>
+        </tr>
+    </table>
+    <script>
+        const removedGames = [
+            {
+                name: 'Nepheshel',
+                reason: 'Removed at the request of Studio Til and Vittone.'
+            }
+        ]
+        const removedGamesTable = document.getElementById('removedGamesTable');
+        removedGames.forEach(game => {
+            const row = removedGamesTable.insertRow(-1);
+            const nameCell = row.insertCell(0);
+            const reasonCell = row.insertCell(1);
+            nameCell.textContent = game.name;
+            reasonCell.textContent = game.reason;
+        })
     </script>
 </body>
 
